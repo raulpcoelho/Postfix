@@ -44,7 +44,12 @@ public class Interpreter implements Expr.Visitor<Integer> {
 	
 	@Override
 	public Integer visitIDExpr(Expr.ID expr) {
-		return Integer.parseInt(env.get(expr.value));
+		String s = env.get(expr.value);
+		if (s != null) {
+			return Integer.parseInt(env.get(expr.value));			
+		} else {
+			throw new ReferenceError("Not declared id: " + expr.value);
+		}
 	}
 
 	@Override

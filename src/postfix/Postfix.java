@@ -28,6 +28,7 @@ import java.util.List;
 import postfix.ast.AstPrinter;
 import postfix.ast.Expr;
 import postfix.interpreter.Interpreter;
+import postfix.interpreter.ReferenceError;
 import postfix.lexer.LexError;
 import postfix.lexer.Scanner;
 import postfix.lexer.Token;
@@ -50,9 +51,9 @@ public class Postfix {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
-		args = new String [2];
-		args [0] = "./Calc1.stk";
-		args [1] = "./Calc2.stk";
+//		args = new String [2];
+//		args [0] = "./Calc1.stk";
+//		args [1] = "./Calc2.stk";
 
 		debugging = false; // for interpretation phases
 		run(args, debugging);
@@ -128,7 +129,11 @@ public class Postfix {
 		catch (ParserError e) {
 			error("Parser", e.getMessage());
 			hasError = true;
-		}	
+		}
+		catch (ReferenceError e) {
+			error("Reference", e.getMessage());
+			hasError = true;
+		}
 	}
 
 	// -------------------------------------------------------------
