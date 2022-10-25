@@ -16,12 +16,20 @@
 
 package postfix.interpreter;
 
+import java.util.HashMap;
+
 import postfix.ast.Expr;
 
 /**
  * @author Henrique Rebelo
  */
 public class Interpreter implements Expr.Visitor<Integer> {
+	
+	public final HashMap<String, String> env;
+	
+	public Interpreter(HashMap<String, String> env) {
+		this.env = env;
+	}
 
 	public int interp(Expr expression) { 
 		int value = evaluate(expression);
@@ -32,6 +40,11 @@ public class Interpreter implements Expr.Visitor<Integer> {
 	@Override
 	public Integer visitNumberExpr(Expr.Number expr) {
 		return Integer.parseInt(expr.value);
+	}
+	
+	@Override
+	public Integer visitIDExpr(Expr.ID expr) {
+		return Integer.parseInt(env.get(expr.value));
 	}
 
 	@Override

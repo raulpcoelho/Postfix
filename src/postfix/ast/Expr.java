@@ -26,6 +26,7 @@ public abstract class Expr {
 	// visitors for expressions
 	public interface Visitor<T> {
 		T visitNumberExpr(Number expr);
+		T visitIDExpr(ID expr);
 		T visitBinopExpr(Binop expr);
 	}
 
@@ -40,6 +41,20 @@ public abstract class Expr {
 		@Override
 		public <T> T accept(Visitor<T> visitor) {
 			return visitor.visitNumberExpr(this);
+		}
+
+		public final String value;
+	}
+	
+	//ID expression
+	public static class ID extends Expr {
+		public ID(String value){
+			this.value = value;
+		}
+
+		@Override
+		public <T> T accept(Visitor<T> visitor) {
+			return visitor.visitIDExpr(this);
 		}
 
 		public final String value;

@@ -59,6 +59,9 @@ public class Parser {
 					TokenType.SLASH, TokenType.STAR)) {
 				this.stack.push(this.binop());
 			}
+			else if(this.match(TokenType.ID)) {
+				this.stack.push(this.id());
+			}
 			this.advance();
 		}
 		return this.stack.pop();
@@ -66,6 +69,10 @@ public class Parser {
 
 	private Expr number() {
 		return new Expr.Number(peek().lexeme);
+	}
+	
+	private Expr id() {
+		return new Expr.ID(peek().lexeme);
 	}
 
 	private Expr binop() {

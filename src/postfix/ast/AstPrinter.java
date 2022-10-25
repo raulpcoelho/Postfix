@@ -3,6 +3,7 @@ package postfix.ast;
 import java.util.Stack;
 
 import postfix.ast.Expr.Binop;
+import postfix.ast.Expr.ID;
 import postfix.ast.Expr.Number;
 
 public class AstPrinter implements Expr.Visitor<String>{
@@ -13,6 +14,11 @@ public class AstPrinter implements Expr.Visitor<String>{
 
 	@Override
 	public String visitNumberExpr(Number expr) {
+		return expr.value.toString();
+	}
+	
+	@Override
+	public String visitIDExpr(ID expr) {
 		return expr.value.toString();
 	}
 

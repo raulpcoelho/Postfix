@@ -22,6 +22,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
 
 import postfix.ast.AstPrinter;
@@ -38,7 +39,7 @@ import postfix.parser.ParserError;
  */
 public class Postfix {
 
-	private static final Interpreter interpreter = new Interpreter();
+	private static final Interpreter interpreter = new Interpreter(new HashMap<String, String>());
 	private static boolean hasError = false;
 	private static boolean debugging = false;
 
@@ -98,6 +99,11 @@ public class Postfix {
 	 * @param source to be interpreted
 	 */
 	private static void run(String source) {
+		interpreter.env.put("x", "5");
+		interpreter.env.put("y", "10");
+		interpreter.env.put("z", "8");
+		interpreter.env.put("w", "3");
+		
 		try {
 			Scanner scanner = new Scanner(source);
 			List<Token> tokens = scanner.scan();
